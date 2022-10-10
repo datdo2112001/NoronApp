@@ -1,9 +1,11 @@
 package com.example.noronapp.data.response;
 
+import com.example.noronapp.data.request.VendorRequest;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import noronapp.jooq.data.tables.pojos.Vendor;
 
 
 @Data
@@ -22,25 +24,27 @@ public class ProductResponse {
 
     private String short_description;
 
-    private int origin_price;
+    private int originPrice;
 
     private int discount;
 
-    private int final_price;
+    private int finalPrice;
 
-    private int origin_coin;
+    private int originCoin;
 
-    private int final_coin;
+    private int finalCoin;
 
-    private int num_buy;
+    private int numBuy;
 
-    private int num_review;
+    private int numReview;
 
     private int rating;
 
-    private Long vendorId;
+    private VendorResponse vendor;
 
     private Long categoryId;
+
+    private Integer numView;
 
 
 }

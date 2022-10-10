@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 
 public class ProductController {
+
     @Autowired
     private ProductService productService;
 
@@ -21,11 +22,10 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity<List<ProductResponse>> getAllProducts()
-    {
+    public ResponseEntity<List<ProductResponse>> getAllProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
     }
-//
+
     @GetMapping("/product/{id}")
     public ResponseEntity<ProductResponse> getProduct(@PathVariable("id") int id) {
         return ResponseEntity.ok(productService.getProductById(id));
@@ -41,10 +41,17 @@ public class ProductController {
     public void deleteProduct(@PathVariable int id) {
         productService.deleteProduct(id);
     }
-//
+
+    //
     @PutMapping("/product/{id}")
     public ResponseEntity<ProductRequest> updateProduct(@RequestBody ProductRequest productRequest, @PathVariable int id) {
         return productService.updateProduct(productRequest, id);
+    }
+
+    @GetMapping("/product/{id}/view")
+    public ResponseEntity<String> upViewProduct(@PathVariable int id) {
+        productService.upView(id);
+        return ResponseEntity.ok("success");
     }
 
 }

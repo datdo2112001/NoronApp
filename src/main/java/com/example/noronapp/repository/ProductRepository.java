@@ -15,30 +15,4 @@ public class ProductRepository extends AbstractCRUDRepository<ProductRecord, Int
         return PRODUCT;
     }
 
-    @Override
-    protected ProductRecord getRecord() {
-        return new ProductRecord();
-    }
-
-
-//    @Override
-//    public void update(Integer id, Product pojo) {
-//        dslContext.update(table())
-//                .set(toUpdateQuery(pojo))
-//                .where(idField.eq(id))
-//                .execute();
-//    }
-//
-//    protected Map<?, ?> toUpdateQuery(Product pojo) {
-//        ProductRecord productRecord = new ProductRecord();
-//        productRecord.from(pojo);
-//        HashMap map = new HashMap<>();
-//        for (Field<?> field : productRecord.fields()) {
-//            if (productRecord.getValue(field) != null) {
-//                map.put(field, productRecord.getValue(field));
-//            }
-//        }
-//        return map;
-//    }
-
 }

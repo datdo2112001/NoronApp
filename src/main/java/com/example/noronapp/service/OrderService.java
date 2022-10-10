@@ -11,11 +11,14 @@ import java.util.List;
 
 @Service
 public class OrderService {
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-    @Autowired
-    private OrderMapper orderMapper;
+    private final OrderMapper orderMapper;
+
+    public OrderService(OrderRepository orderRepository, OrderMapper orderMapper) {
+        this.orderRepository = orderRepository;
+        this.orderMapper = orderMapper;
+    }
 
     public List<OrderResponse> getAllOrders() {
         return orderMapper.ordersToOrderDtos((List<Order>) orderRepository.findAll());

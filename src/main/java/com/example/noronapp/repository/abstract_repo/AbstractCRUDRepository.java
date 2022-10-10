@@ -1,5 +1,6 @@
 package com.example.noronapp.repository.abstract_repo;
 
+import noronapp.jooq.data.tables.pojos.Product;
 import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Table;
@@ -19,7 +20,10 @@ public abstract class AbstractCRUDRepository<R extends UpdatableRecord<R>, ID, P
     protected DSLContext dslContext;
 
     protected abstract Table<R> table();
-    protected abstract R getRecord();
+
+    protected R getRecord() {
+        return table().newRecord();
+    }
 
     protected Field<ID> idField;
 //    protected R record;
@@ -49,6 +53,14 @@ public abstract class AbstractCRUDRepository<R extends UpdatableRecord<R>, ID, P
                 .execute();
     }
 
+    public Product insert(P p) {
+        return dslContext.insertInto(table())
+                .set(dslContext.newRecord(table(), p))
+                .returning()
+                .fetchOne()
+                .into(Product.class);
+    }
+
     public List<P> findAll() {
         return dslContext.selectFrom(table())
                 .fetchInto(pojoClass);
@@ -66,7 +78,7 @@ public abstract class AbstractCRUDRepository<R extends UpdatableRecord<R>, ID, P
     }
 
     protected Map<?, ?> toUpdateQuery(P pojo) {
-        R record = getRecord();
+        R record = table().newRecord();
         record.from(pojo);
         HashMap map = new HashMap<>();
         for (Field<?> field : record.fields()) {
